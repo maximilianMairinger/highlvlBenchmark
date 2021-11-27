@@ -7,7 +7,6 @@ const itr = 10000000
 
 const benchmark = benchmarkSuite(itr)
 
-console.log("shift3")
 
 // const random = []
 // for (let i = 0; i < itr; i++) {
@@ -19,14 +18,7 @@ console.log("shift3")
 
 
 benchmark(
-  function Array() {
-    const list = []
-    
-    return (j) => {
-      if (j % 2) list.push(j)
-      else list.unshift(j)
-    }
-  },
+  
   function Yallist() {
     const list = yallist.create()
 
@@ -39,6 +31,14 @@ benchmark(
 
     const list = new fastList()
 
+    return (j) => {
+      if (j % 2) list.push(j)
+      else list.unshift(j)
+    }
+  },
+  function Array() {
+    const list = []
+    
     return (j) => {
       if (j % 2) list.push(j)
       else list.unshift(j)

@@ -1,22 +1,25 @@
 import timoi from "timoi"
+import delay from "delay"
 
 
 
+const orderedSpeedAdjectiveFac = [2, 1.35, 1]
 const speedAdjectives = {
-  0: "slightly",
-  5: "considerably",
-  50: "hugely"
+  1: "slightly",
+  1.35: "considerably",
+  2: "hugely"
 }
 
 export function benchmarkSuite(iterations = 1000000) {
   // Todo print cpu and mem information
   
 
-  return function benchmark(...fs: (() => ((i: number) => void))[]) {
+  return async function benchmark(...fs: (() => ((i: number) => void))[]) {
     console.log("Starting benchmark")
 
     const timings = []
     for (let i = 0; i < fs.length; i++) {
+      await delay(100)
       const time = timoi()
       const call = fs[i]()
       for (let i = 0; i < iterations; i++) {
@@ -36,8 +39,8 @@ export function benchmarkSuite(iterations = 1000000) {
         let fastDesc: string
         if (percent < 100) {
           let desc: string
-          for (const speed of Object.keys(speedAdjectives).reverse()) {
-            if (percent < 100 + (+speed)) {
+          for (const speed of orderedSpeedAdjectiveFac) {
+            if (percent < 100 / (+speed)) {
               desc = speedAdjectives[speed]
               break
             }
@@ -46,8 +49,8 @@ export function benchmarkSuite(iterations = 1000000) {
         }
         else if (percent > 100) {
           let desc: string
-          for (const speed of Object.keys(speedAdjectives).reverse()) {
-            if (percent > 100 - (+speed)) {
+          for (const speed of orderedSpeedAdjectiveFac) {
+            if (percent > 100 * (+speed)) {
               desc = speedAdjectives[speed]
               break
             }

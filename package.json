@@ -51,6 +51,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@rollup/plugin-typescript": "^5.0.0",
+    "@types/cli-progress": "^3.11.0",
     "@types/fast-list": "^1.0.0",
     "@types/jest": "^26.0.15",
     "@types/node": "^13.13.4",
@@ -65,8 +66,10 @@
     "yallist": "^4.0.0"
   },
   "dependencies": {
+    "cli-progress": "^3.12.0",
     "cross-platform-specs": "^1.0.0",
     "delay": "^5.0.0",
+    "fast-equals": "^5.0.1",
     "fast-list": "^1.0.3",
     "os-name": "^5.1.0",
     "req-package-json": "^2.0.0",

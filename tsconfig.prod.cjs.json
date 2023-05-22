@@ -2,15 +2,18 @@
   "compilerOptions": {
     "outDir": "./app/dist/cjs",
     "module": "CommonJS",
-    "target": "ES2020",
+    "target": "es2020",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "declaration": false,
     "resolveJsonModule": true,
     "allowJs": true,
-    "skipLibCheck": true
+    "declaration": true,
+    "skipLibCheck": true,
+    "lib": ["es2022", "DOM"]
   },
   "exclude": [
     "./test",
+    "./repl",
     "./app/dist"
   ],
   "include": [

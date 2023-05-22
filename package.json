@@ -15,9 +15,9 @@
     "default": "./app/dist/esm/highlvlBenchmark.js"
   },
   "scripts": {
-    "build": "npm run buildCJS && npm run buildESM",
+    "build": "del-cli app/dist && concurrently \"npm run buildESM\" \"npm run buildCJS\" --raw",
+    "buildESM": "tsc -p ./tsconfig.prod.esm.json && mjsify app/dist esm cjs",
     "buildCJS": "tsc -p ./tsconfig.prod.cjs.json",
-    "buildESM": "tsc -p ./tsconfig.prod.esm.json",
     "dev": "npm run devWeb",
     "devWeb": "rollup --config rollup.web.dev.config.js -w",
     "devNode": "rollup --config rollup.node.dev.config.js -w",
@@ -65,8 +65,10 @@
     "yallist": "^4.0.0"
   },
   "dependencies": {
+    "cross-platform-specs": "^1.0.0",
     "delay": "^5.0.0",
     "fast-list": "^1.0.3",
+    "os-name": "^5.1.0",
     "req-package-json": "^2.0.0",
     "timoi": "^1.1.3"
   }

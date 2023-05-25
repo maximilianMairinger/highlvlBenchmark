@@ -1,6 +1,6 @@
 import build from './build.mjs';
 import startBrowser from './browser.mjs';
-import startServer from './server.mjs';
+// import startServer from './server.mjs';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

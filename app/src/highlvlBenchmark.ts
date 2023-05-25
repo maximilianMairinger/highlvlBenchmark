@@ -2,7 +2,6 @@ import timoi from "timoi"
 import delay from "delay"
 import getSpecs from "cross-platform-specs"
 import { deepEqual } from "fast-equals"
-import { SingleBar, MultiBar, Presets } from "cli-progress"
 import is from "platform-detect"
 
 
@@ -16,37 +15,27 @@ const speedAdjectives = {
 }
 
 
-export function benchmarkSuite(iterations = 1000000, { warmupIterations, cliProgressBar, compareResults, printSpecs } = { warmupIterations: Math.ceil(iterations / 1000), cliProgressBar: is.terminal, compareResults: true, printSpecs: true }) {
+export function benchmarkSuite(iterations = 1000000, { warmupIterations, compareResults, printSpecs } = { warmupIterations: Math.ceil(iterations / 1000), compareResults: true, printSpecs: true }) {
   if (printSpecs) console.log(getSpecs())
 
 
 
   return async function benchmark(...fs: (() => ((i: number) => void))[]) {
 
-    let multiProgressBar: MultiBar
 
-    if (cliProgressBar) {
-      multiProgressBar = new MultiBar({
-        clearOnComplete: false,
-        hideCursor: true,
-        format: "{name} | {bar} | {percentage}% | {eta_formatted}"
-      }, Presets.legacy)
-    }
+
 
     if (warmupIterations) {
-      let bar: SingleBar
-      if (cliProgressBar) bar = multiProgressBar.create(fs.length * warmupIterations, 0, { name: "Warmup" })
-      else console.log("Warming up")
+      console.log("Warming up")
 
       for (let i = 0; i < fs.length; i++) {
         await delay(100)
         const call = fs[i]()
         const oldValue = call(0)
-        if (cliProgressBar) bar.increment()
+        
         for (let j = 1; j < warmupIterations; j++) {
           const newValue = call(j)
           if (compareResults && !deepEqual(oldValue, newValue)) throw new Error("Results must be always the equal.")
-          if (cliProgressBar) bar.increment()
         }
       }
 
@@ -55,26 +44,22 @@ export function benchmarkSuite(iterations = 1000000, { warmupIterations, cliProg
 
 
     
-    let bar: SingleBar
-    if (cliProgressBar) bar = multiProgressBar.create(fs.length * warmupIterations, 0, { name: "Benchmark" })
-    else console.log("Benchmarking")
-
-
     
+
+
     
 
 
     const timings = [] as number[]
     for (let i = 0; i < fs.length; i++) {
+
       await delay(100)
       const time = timoi()
       const call = fs[i]()
       const oldValue = call(0)
-      if (cliProgressBar) bar.increment()
       for (let j = 1; j < iterations; j++) {
         call(j)
         if (compareResults && !deepEqual(oldValue, call(j))) throw new Error("Results must be always the equal.")
-        if (cliProgressBar) bar.increment()
       }
       timings.push(time.time())
       console.log(`${fs[i].name ? fs[i].name : ((i + 1) + ". run")} took ${time.str()}`)

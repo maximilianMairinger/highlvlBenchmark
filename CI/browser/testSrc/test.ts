@@ -1,4 +1,4 @@
-import benchmarkSuite from "./../../../app/dist/esm/highlvlBenchmark"
+import benchmarkSuite from "./../../../app/dist/browser/highlvlBenchmark"
 
 import fastList from "fast-list"
 import yallist from "yallist"

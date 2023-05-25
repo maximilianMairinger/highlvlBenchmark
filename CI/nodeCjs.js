@@ -1,8 +1,8 @@
-const benchmarkSuite = require("highlvl-benchmark")
+const { benchmarkSuite } = require("highlvl-benchmark")
 
 const fastList = require("fast-list")
 const yallist = require("yallist")
-const fastLinkedList = require("fast-linked-list")
+const fastLinkedList = require("fast-linked-list").default
 
 const itr = 100000
 const benchmark = benchmarkSuite(itr)

@@ -1,10 +1,10 @@
 import timoi from "timoi"
 import delay from "delay"
-import os from "os"
-import osName from "os-name"
 import getSpecs from "cross-platform-specs"
 import { deepEqual } from "fast-equals"
 import { SingleBar, MultiBar, Presets } from "cli-progress"
+import is from "platform-detect"
+
 
 
 
@@ -16,7 +16,7 @@ const speedAdjectives = {
 }
 
 
-export function benchmarkSuite(iterations = 1000000, { warmupIterations, cliProgressBar, compareResults, printSpecs } = { warmupIterations: Math.ceil(iterations / 1000), cliProgressBar: true, compareResults: true, printSpecs: true }) {
+export function benchmarkSuite(iterations = 1000000, { warmupIterations, cliProgressBar, compareResults, printSpecs } = { warmupIterations: Math.ceil(iterations / 1000), cliProgressBar: is.terminal, compareResults: true, printSpecs: true }) {
   if (printSpecs) console.log(getSpecs())
 
 

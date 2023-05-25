@@ -2,7 +2,6 @@ import timoi from "timoi"
 import delay from "delay"
 import getSpecs from "cross-platform-specs"
 import { deepEqual } from "fast-equals"
-import is from "platform-detect"
 
 
 

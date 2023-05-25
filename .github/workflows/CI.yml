@@ -3,18 +3,61 @@ name: CI
 on: push
 
 jobs:
-
-  CI: 
-    name: CI
+  test: 
+    name: test
     runs-on: ubuntu-latest
     
     steps: 
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Setup Node
+      uses: actions/setup-node@master
       with:
-        node-version: '14.x'
-    - run: |
-        npm i
-        npm test --if-present
+        node-version: '18.x'
+
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+
+    - name: Install dependencies
+      run: npm i
+    - name: Unit tests
+      run: npm run test --if-present
       env:
         CI: true
+    - name: building
+      run: npm run build
+      env:
+        CI: true
+    - name: Test esm
+      run: node CI/nodeEsm.mjs
+      env:
+        CI: true
+    - name: Test cjs
+      run: node CI/nodeCjs.js
+      env:
+        CI: true
+    - name: Test deno
+      run: deno run --allow-sys --quiet CI/deno.mjs
+      env:
+        CI: true
+
+    - name: Test browser
+      run: node CI/browser/main.mjs
+      env:
+        CI: true
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

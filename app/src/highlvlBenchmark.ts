@@ -47,7 +47,7 @@ export function benchmarkSuite(iterations = 1000000, { warmupIterations, compare
     
 
 
-    
+    console.log("Benchmarking")
 
 
     const timings = [] as number[]

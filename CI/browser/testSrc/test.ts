@@ -4,7 +4,7 @@ import fastList from "fast-list"
 import yallist from "yallist"
 import fastLinkedList from "fast-linked-list"
 
-const itr = 10000000
+const itr = 100000
 const benchmark = benchmarkSuite(itr)
 
 

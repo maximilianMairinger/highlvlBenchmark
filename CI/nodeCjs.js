@@ -4,7 +4,7 @@ const fastList = require("fast-list")
 const yallist = require("yallist")
 const fastLinkedList = require("fast-linked-list")
 
-const itr = 10000000
+const itr = 100000
 const benchmark = benchmarkSuite(itr)
 
 
